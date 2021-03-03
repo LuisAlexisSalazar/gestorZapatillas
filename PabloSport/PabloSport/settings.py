@@ -22,7 +22,10 @@ DEBUG = True
 
 
 # Produccion
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+
+# Deploy Python anywhere
+ALLOWED_HOSTS = [*]
 
 # Deploy
 # Permitir que todo ingresen al sitio web
