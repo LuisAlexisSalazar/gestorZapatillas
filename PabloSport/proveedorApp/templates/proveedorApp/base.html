@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  {% load static %}
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>OnePage Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'proveedorApp/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'proveedorApp/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'proveedorApp/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'proveedorApp/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'proveedorApp/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'proveedorApp/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'proveedorApp/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'proveedorApp/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'proveedorApp/vendor/aos/aos.css' %}" rel="stylesheet">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'proveedorApp/css/style.css' %}" rel="stylesheet">
+
+  <style>
+    .contenedormenu {
+      display: flex;
+    }
+
+    .listado{
+      margin-right: 55px;
+
+      /* Pone el texto en una linea */
+      white-space: nowrap;
+    }
+
+  </style>
+
+  {% block style %}
+
+  {% endblock %}
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="index.html">OnePage</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <!-- <li class="active"><a href="index.html">Home</a></li> -->
+          <li><a href="{% url 'Proveedor' %}">Proveedores</a></li>
+          <li><a href="{% url 'CrearMarca' %}">Marcas</a></li>
+
+          <li><a href="{% url 'Grupo-SeleccionProveedor' %}">Grupos de Zapatillas</a></li>
+
+          <li class="drop-down"><a href="#"> Boleta </a>
+            <ul>
+              <li><a href="{% url 'Boletas' 0 1    %}">Grupos Generales</a></li>
+              <li><a href="{% url 'Proveedor-grupo-boleta' %}">Grupos Especifico por Proveedor</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#"> Registrar Zapatilla </a>
+            <ul>
+              <li><a href="{% url  'MostrarGrupos' 0 1 %}"> Grupos Generales </a></li>
+              <li><a href="{% url 'MostrarProveedores' %}"> Grupos Especifico por Proveedor</a></li>
+            </ul>
+          </li>
+
+
+          <li class="drop-down"><a href="#">Registrar Venta </a>
+            <ul>
+              <li><a href="{% url 'ZapatillasGeneralesVender'%}"> Zapatillas Generales </a></li>
+              <li><a href="{% url 'CodigoVenta' %}"> Zapatillas por Codigo </a></li>
+              <li><a href="{% url 'CaracteristicasVenta' %}"> Por Modelo Talla Marca </a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="">Kardex (ventas)</a>
+            <ul>
+              <li><a href="{% url 'Kardex' %}">Generales</a></li>
+              <li><a href="{% url 'KardexModelo' %}">Modelo</a></li>
+              <li><a href="{% url 'KardexRango' %}">Rango de Fechas</a></li>
+              <li><a href="{% url 'KardexHoy' %}">Hoy</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="">Ver Zapatillas</a>
+            <ul>
+              <li><a href="{% url 'VerZapatillasGeneral' %}">Generales</a></li>
+              <li><a href="{% url 'VerZapatillasCodigo'%}">Codigo</a></li>
+              <li><a href="{% url 'VerZapatillasModelo'%}">Modelo</a></li>
+              <li><a href="{% url 'VerZapatillasMarca'%}">Marca</a></li>
+              <li><a href="{% url 'VerZapatillasTalla'%}">Talla</a></li>
+            </ul>
+          </li>
+
+          <li><a href="{% url 'PDFZapatillasVendedor' %}">PDF</a></li>
+        </ul>
+      
+      
+
+      </nav><!-- .nav-menu -->
+
+      
+      <!-- Raro no usa el url normal -->
+      <a href="{% url 'Logout' %}" class="get-started-btn scrollto">Cerrar Sesión</a>
+
+
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+
+
+
+  <!-- ======= Seccion Diferente ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+
+
+      <!--Contenido cambiante -->
+      {% block content %}
+
+      {% endblock %}
+
+    </div>
+
+  </section>
+
+  <!-- Section Diferente -->
+
+
+  <!-- Acciones principales solo para home.html -->
+  {% block main %}
+
+  {% endblock %}
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Pablo Sports</h3>
+            <p>
+              Avelino <br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Servicios rapidos</h4>
+            <div class="contenedormenu">
+
+              <div class="listado">
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Home' %}">Pagina Principal</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Proveedor' %}">Gestión Proveedor</a></li>
+                </ul>
+              </div>
+              
+              <div class="listado">
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'CrearMarca' %}">Gestión Marca</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Grupo-SeleccionProveedor' %}">Gestión Grupo de Zapatillas</a></li>
+                </ul>
+              </div>
+              
+              <div class="listado">
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Boletas' 0 1 %}">Gestión Boleta</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url  'MostrarGrupos' 0 1 %}">Gestión Zapatillas</a></li>
+                </ul>
+              </div>
+
+              <div class="listado">
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'ZapatillasGeneralesVender'%}">Registrar Venta</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Kardex' %}">Gestión Venta</a></li>
+                </ul>
+              </div>
+              
+              <div class="listado">
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'VerZapatillasGeneral' %}">Ver Zapatillas</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'PDFZapatillasVendedor' %}">Generar PDF</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <!-- Flecha para ir arriba -->
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  <div id="preloader"></div>
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'proveedorApp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'proveedorApp/vendor/aos/aos.js' %}"></script>
+
+
+
+
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'proveedorApp/js/main.js' %}"></script>
+
+  {% block script %}
+
+  {% endblock %}
+</body>
+
+</html>

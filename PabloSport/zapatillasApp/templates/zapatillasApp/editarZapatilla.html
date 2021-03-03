@@ -1,0 +1,330 @@
+{% extends "proveedorApp/base2.html" %}
+
+
+{% load static %}
+
+
+{% block style %}
+
+<!-- Formulario -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link href="{% static 'zapatillasApp/css/style.css' %}" rel="stylesheet">
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+<div class="container" id="advanced-search-form">
+    <h2>Formulario para editar una zapatillas </h2>
+
+    <form class="form-horizontal" action="" method="POST"
+        style="text-align: center;"> {% csrf_token %}
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Modelo</label>
+            <input type="text" class="form-control" value="{{zapatilla.modelo}}" maxlength="20" name="modelo" required>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Codigo</label>
+            <input type="text" class="form-control" value="{{zapatilla.codigo}}" maxlength="20" name="codigo" required>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Talla</label>
+            <input type="number" class="form-control" placeholder="Ingresar Talla" value="{{zapatilla.talla}}" step=".01" name="talla" required>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">P.Sugerido</label>
+            <input type="number" class="form-control" placeholder="Ingresar Precio" value="{{zapatilla.precioSugerido}}" step="0.01" name="precioSuge"
+            min="40" max="500" maxlength="5" required>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">P.Compra</label>
+            <input type="number" class="form-control" placeholder="Ingresar Precio" value="{{zapatilla.precioCompra}}" step="0.01" name="precioCompra"
+            min="40" max="500" maxlength="5" required>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Categoria</label >
+            <select name="categoriaSelector" class="form-select form-select-lg mb-3" style="color: rgb(73, 69, 69);" required>
+
+                <option value="">Escoger </option>
+
+                {% if zapatilla.categoriaGenero == "dama" %}
+
+                <option value="dama" selected> dama </option>
+                <option value="varón"> varón </option>
+                <option value="infante"> infante </option>
+                <option value="niño"> niño </option>
+                
+                {% elif zapatilla.categoriaGenero == "varón" %}
+
+                <option value="dama" > dama </option>
+                <option value="varón" selected> varón </option>
+                <option value="infante"> infante </option>
+                <option value="niño"> niño </option>
+                
+                {% elif zapatilla.categoriaGenero == "infante" %}
+
+                <option value="dama" > dama </option>
+                <option value="varón" > varón </option>
+                <option value="infante" selected> infante </option>
+                <option value="niño"> niño </option>
+
+                {% elif zapatilla.categoriaGenero == "niño" %}
+
+                <option value="dama" > dama </option>
+                <option value="varón" > varón </option>
+                <option value="infante" > infante </option>
+                <option value="niño" selected> niño </option>
+                
+                {% endif %}
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Uso</label>
+            <select name="categoriaUso" class="form-select form-select-lg mb-3" style="color: rgb(73, 69, 69);"  required >
+
+                <option value="">Escoger </option>
+
+                {% if zapatilla.categoriaUso == "deporte" %}
+                    <option value="deporte" selected> deporte </option>
+                    <option value="caminar"> caminar </option>
+                    <option value="vestir"> vestir </option>
+                {% elif zapatilla.categoriaUso == "caminar" %}
+                    <option value="deporte" > deporte </option>
+                    <option value="caminar" selected> caminar </option>
+                    <option value="vestir"> vestir </option>
+                {% elif zapatilla.categoriaUso == "vestir" %}
+                    <option value="deporte" > deporte </option>
+                    <option value="caminar" > caminar </option>
+                    <option value="vestir" selected> vestir </option>
+                {% endif %}
+                
+            </select>
+        </div>
+
+       
+        <div class="form-group">
+            <label class="control-label col-sm-2">Color</label>
+            <select  name="colorSelector" class="form-select form-select-lg mb-3" style="color: rgb(73, 69, 69);"
+                onchange="changecolor(fondoColor,value)"
+                required
+                >
+                <option value="">Escoger </option>
+                {% if zapatilla.colorPrincipal == "rojo" %}
+                    <option value=rojo selected> Rojo </option>
+                    <option value=azul> Azul </option>
+                    <option value=amarillo> Amarillo </option>
+                    <option value=verde> Verde </option>
+                    <option value=morado> Morado </option>
+                    <option value=celeste> Celeste </option>
+                    <option value=negro> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+                
+        
+                {% elif zapatilla.colorPrincipal == "azul" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul selected> Azul </option>
+                    <option value=amarillo> Amarillo </option>
+                    <option value=verde> Verde </option>
+                    <option value=morado> Morado </option>
+                    <option value=celeste> Celeste </option>
+                    <option value=negro> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+            
+                {% elif zapatilla.colorPrincipal == "amarillo" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo selected > Amarillo </option>
+                    <option value=verde> Verde </option>
+                    <option value=morado> Morado </option>
+                    <option value=celeste> Celeste </option>
+                    <option value=negro> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+
+                {% elif zapatilla.colorPrincipal == "verde" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo > Amarillo </option>
+                    <option value=verde selected > Verde </option>
+                    <option value=morado> Morado </option>
+                    <option value=celeste> Celeste </option>
+                    <option value=negro> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+                
+                {% elif zapatilla.colorPrincipal == "morado" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo > Amarillo </option>
+                    <option value=verde  > Verde </option>
+                    <option value=morado selected> Morado </option>
+                    <option value=celeste> Celeste </option>
+                    <option value=negro> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+                
+                {% elif zapatilla.colorPrincipal == "celeste" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo > Amarillo </option>
+                    <option value=verde  > Verde </option>
+                    <option value=morado > Morado </option>
+                    <option value=celeste selected> Celeste </option>
+                    <option value=negro> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+                
+                {% elif zapatilla.colorPrincipal == "negro" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo > Amarillo </option>
+                    <option value=verde  > Verde </option>
+                    <option value=morado > Morado </option>
+                    <option value=celeste > Celeste </option>
+                    <option value=negro selected> Negro </option>
+                    <option value=blanco> Blanco </option>
+                    <option value=gris> Gris </option>
+
+                {% elif zapatilla.colorPrincipal == "blanco" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo > Amarillo </option>
+                    <option value=verde  > Verde </option>
+                    <option value=morado > Morado </option>
+                    <option value=celeste > Celeste </option>
+                    <option value=negro > Negro </option>
+                    <option value=blanco selected> Blanco </option>
+                    <option value=gris> Gris </option>
+
+                {% elif zapatilla.colorPrincipal == "gris" %}
+                    <option value=rojo > Rojo </option>    
+                    <option value=azul > Azul </option>
+                    <option value=amarillo > Amarillo </option>
+                    <option value=verde  > Verde </option>
+                    <option value=morado > Morado </option>
+                    <option value=celeste > Celeste </option>
+                    <option value=negro > Negro </option>
+                    <option value=blanco > Blanco </option>
+                    <option value=gris selected> Gris </option>
+
+
+                {% endif %}
+            </select>
+            <div id="fondoColor" class="fondoColor"></div>
+        </div>
+
+
+        
+
+        <div class="clearfix"></div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Marca</label>
+            <select name="marca" class="form-select form-select-lg mb-3" style="color: rgb(73, 69, 69);" required>
+                <option value="">Escoger </option>
+
+                {% for marca in marcas %}
+                    {% if zapatilla.marcaPerteneciente.nombre == marca.nombre %}
+                        <option value="{{marca.id}}" selected> {{marca.nombre}} </option>
+                    {% else %}
+                        <option value="{{marca.id}}"> {{marca.nombre}} </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Descripcion:</label>
+            <textarea class="form-control" name="descripcion" rows="3" placeholder="Opcional">{{zapatilla.descripcion}}</textarea>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Colores:</label>
+            <textarea class="form-control" name="coloresExtras" rows="3" placeholder="Opcional">{{zapatilla.colorSecundario}}</textarea>
+        </div>
+
+
+        <div class="clearfix"></div>
+
+        <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span
+                class="glyphicon glyphicon-search"></span> Actualizar </button>
+
+
+    </form>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block script %}
+
+<!-- Formulario Color selector -->
+<script>
+    function changecolor(id, color) {
+        if (color == "rojo") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#FF0000";
+        } else if (color == "azul") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#0000FF";
+        } else if (color == "amarillo") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#FFFF00";
+        } else if (color == "verde") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#008000";
+        } else if (color == "morado") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#800080";
+        } else if (color == "celeste") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#00FFFF";
+        } else if (color == "negro") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#000000";
+        } else if (color == "blanco") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#FFFFFF";
+
+        } else if (color == "gris") {
+            id.style.display = "block";
+            id.style.backgroundColor = "#C0C0C0";
+        } else {
+            id.style.display = "none";
+        
+        }
+    }
+
+    changecolor(document.getElementById("fondoColor"),"{{zapatilla.colorPrincipal}}")
+    
+</script>
+
+
+{% endblock %}

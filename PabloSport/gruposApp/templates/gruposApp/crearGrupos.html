@@ -1,0 +1,121 @@
+{% extends "proveedorApp/base.html" %}
+
+<!-- Volvemos a cargar porque hay imagenes y partes que necesitan de los statics  -->
+{% load static %}
+
+
+
+
+{% block content %}
+
+
+<section id="about-video" class="about-video">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <!-- Poner el Formulario -->
+            <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
+                <!-- Video Puesto -->
+                <!-- <img src="{% static 'proveedorApp/img/about-video.jpg' %}" class="img-fluid" alt="">
+                <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-3" data-vbtype="video" data-autoplay="true"></a> -->
+                <div class="container">
+                    <h2>Crear Grupo de Zapatillas </h2>
+                    <!-- Usamos el name de los urls -->
+                    <form class="form-horizontal" action="{% url 'CrearGrup' proveedor.id    %}" method="POST"> {% csrf_token %}
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Datos:</label>
+
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" placeholder="Ingrese la fecha del grupo de zapatillas"
+                                    name="fecha" required>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-group">
+                            <!-- Boton no Centrado -->
+                            <!-- <div class="col-sm-offset-2 col-sm-10"> -->
+
+                            <!-- Boton centrado -->
+                            <div class="col-sm-offset-2 col-sm-10- text-center">
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Texto -->
+            <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+                <h3>Nombre del Proveedor : {{ proveedor.nombre }} </h3>
+                <!-- <p class="font-italic">
+                    El proveedor se registrara por nombre con máximo de 15 caracteres, este se le podra asignar:
+                </p> -->
+                <ul>
+                    <li><i class="bx bx-check-double"></i> Grupos de Zapatillas que tiene el proveedor :    {{ proveedor.amount_grupos }} </li>
+                    <li><i class="bx bx-check-double"></i> Boletas entregadas : {{cantidad_boletas}} </li>
+                </ul>
+                <p>
+                    La fecha que pongas se registrara para el grupo de zapatillas que llego y sera asignado al proveedor que selecciono, los grupos de zapatillas del proveedor las puede ver abajo 
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End About Video Section -->
+
+
+
+
+
+<!-- Pruebas de tarjetas -->
+<section id="hero" class="d-flex align-items-center">
+
+<div>
+    <!-- Tarjetas blancas del inicio-->
+    <div class="row icon-boxes"> 
+
+        <!-- Nombre de los proveedores -->
+
+        {% for grupo in grupos %}
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+                <!-- https://remixicon.com/  Iconos fachas -->
+                <div class="icon"><i class="ri-user-line"></i></div>
+                <h4 class="title"><a href="#"> Grupo </a></h4>
+                
+                {% load i18n %}
+                {% language 'es' %}
+                <p class="description">Fecha de Ingreso de zapatillas </p>
+                <p class="description">Año : {{ grupo.fechaIngreso.year }} </p>
+                <p class="description">Día y mes : {{grupo.fechaIngreso.day}} de {{ grupo.fechaIngreso|date:"F" }}</p>
+                {% endlanguage %}
+
+
+                <!-- href="{% url 'EditarProveedor' proveedor.id %}" -->
+                
+                <br>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a  href="{% url 'EditarGrupo' grupo.id grupo.creador.id %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true">Editar</a>
+
+                    <a href="{% url 'EliminarGrupo' grupo.id grupo.creador.id %}" class="btn btn-danger btn-lg" role="button" aria-disabled="true">Eliminar</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+    
+</div>
+    
+</section>
+
+
+
+
+{% endblock %}

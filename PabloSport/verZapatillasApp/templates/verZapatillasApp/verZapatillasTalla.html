@@ -1,0 +1,422 @@
+{% extends "proveedorApp/base2.html" %}
+
+
+{% load static %}
+
+
+{% block style %}
+
+<!-- Formulario -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link href="{% static 'zapatillasApp/css/style.css' %}" rel="stylesheet">
+
+<link href="{% static 'verZapatillasApp/css/style.css' %}" rel="stylesheet">
+
+<!-- Tabla Scroll Facha -->
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container" id="advanced-search-form">
+    <h2 style="padding-left: 55px;">Formulario para visualizar zapatillas por talla </h2>
+
+    <form class="form-horizontal" action="" method="POST" style="text-align: center;"> {% csrf_token %}
+
+        
+
+        <div class="col-md-10" style="margin-bottom: 20px;">
+            <div class="form-group">
+                <label class="control-label col-sm-2" style="margin-bottom: 15px; padding-left: 300px;" >Talla</label>
+                
+                <input type="number" class="form-control" placeholder="Ingresar Talla" step=".25" name="talla" required min="25"
+                max="60" maxlength="4" style="width: 300px; margin-left: 200px;">
+
+            </div>
+            
+        </div>
+
+        <div class="clearfix"></div>
+        
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="seleccionOpcion" id="seleccionOpcion1"
+                value="soloVendidas" required >
+            <label class="form-check-label" for="seleccionOpcion1">
+                Solo Zapatillas Vendidas
+            </label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="seleccionOpcion" id="seleccionOpcion2"
+                value="soloNoVendidas">
+            <label class="form-check-label" for="seleccionOpcion2">
+                Solo Zapatillas No Vendidas
+            </label>
+        </div>
+
+        
+        <div class="form-check form-check-inline" style="margin-top: 10px;">
+            <input class="form-check-input" type="radio" name="seleccionOpcion" id="seleccionOpcion3" value="ambas">
+            <label class="form-check-label" for="seleccionOpcion3">
+                Ambas (Vendidas y No vendidas)
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span
+                class="glyphicon glyphicon-search"></span> Buscar </button>
+
+    </form>
+</div>
+
+
+
+
+{% if seleccion == "soloVendidas" %}
+
+    {% if ventas.count != 0%}
+
+    <div class="table-responsive" style="margin-left: 50px; margin-right: 60px; margin-top: 50px;" id="barra">
+        <p style="text-align: center;">Lista de Zapatillas Vendidas </p>
+        
+        <div id="div1">
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col" class="text-center" nowrap="nowrap" style="width: 30px;">#</th>
+                    <th scope="col" class="text-center">Modelo</th>
+                    <th scope="col" class="text-center">Codigo</th>
+                    <th scope="col" class="text-center">Talla</th>
+                    <th scope="col" class="text-center"> Color Principal </th>
+                    <th scope="col" class="text-center">Marca</th>
+
+
+                    <th scope="col" class="text-center">Precio de Venta Sugerido</th>
+                    <th scope="col" class="text-center">Precio de Compra</th>
+
+                    <th scope="col" class="text-center">Precio de Venta</th>
+                    <th scope="col" class="text-center">Fecha de Venta</th>
+
+                    <th scope="col" class="text-center">Ganacia</th>
+
+                    <th scope="col" class="text-center">Operaciones en Venta</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for venta in ventas %}
+                <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td class="text-center">{{ venta.zapatillaCorrespondiente.modelo }}</td>
+                    <td class="text-center">{{ venta.zapatillaCorrespondiente.codigo }}</td>
+                    <td class="text-center">{{ venta.zapatillaCorrespondiente.talla }}</td>
+                    <td class="text-center">
+                        <div class="{{ venta.zapatillaCorrespondiente.colorPrincipal }}" style="margin-left: 40%;"> </div>
+                    </td>
+                    <td class="text-center">{{ venta.zapatillaCorrespondiente.marcaPerteneciente.nombre }}</td>
+
+                    <td class="text-center">{{ venta.zapatillaCorrespondiente.precioSugerido }}</td>
+                    <td class="text-center">{{ venta.zapatillaCorrespondiente.precioCompra }}</td>
+
+
+                    <td class="text-center">{{ venta.precioVenta }}</td>
+
+                    <td class="text-center">{{ venta.fechaVenta }}</td>
+                    {% if venta.ganancia >= venta.gananciaEsperada %}
+
+                    <td class="text-center" style="color: green;">{{ venta.ganancia|floatformat:"2" }}</td>
+
+                    {% else %}
+
+                    <td class="text-center" style="color: red;">{{ venta.ganancia|floatformat:"2" }}</td>
+                    {% endif %}
+
+                    <td class="text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-secondary" href="{% url 'EditarVenta' venta.id %}">Editar</a>
+                            <a class="btn btn-danger" href="{% url 'EliminarVenta' venta.id %}">Eliminar</a>
+                          </div>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+            
+            <tfootc>
+                <tr>
+                    <td colspan="3"><strong>Total Zapatillas Vendidas : </strong></td>
+                    <td class="text-right"><strong> {{ ventas.count }} </strong></td>
+                </tr>
+
+                <tr>
+                    <td colspan="10"><strong>Ganacia Total :</strong></td>
+                    <td class="text-center"><strong> {{ ganaciaTotal|floatformat:"2" }} </strong></td>
+                </tr>
+            </tfootc>
+
+        </table>
+        </div>
+    </div>
+
+    {% else %}
+
+    <div style="padding-top: 70px;">
+        <p style="text-align: center; margin-top: 25px; color: red;"> No hay zapatilllas vendidas </p>
+    </div>
+
+    {% endif %}
+
+
+{% elif seleccion == "soloNoVendidas" %}
+
+    {% if zapatillas.count != 0%}
+
+    <div class="table-responsive" style="margin-left: 50px; margin-right: 60px; margin-top: 50px;" id="barra">
+        <p style="text-align: center;">Lista de Zapatillas No Vendidas </p>
+
+        <div id="div1">
+        <table class="table">
+
+            <thead class="table-light">
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">Modelo</th>
+                    <th scope="col" class="text-center">Codigo</th>
+                    <th scope="col" class="text-center">Talla</th>
+                    <th scope="col" class="text-center">Precio Sugerido</th>
+                    <th scope="col" class="text-center">Precio Compra</th>
+                    <th scope="col" class="text-center">Género</th>
+                    <th scope="col" class="text-center">Uso</th>
+                    <th scope="col" class="text-center">Marca</th>
+                    <th scope="col" class="text-center">Color Principal</th>
+                    <th scope="col" class="text-center"> Operaciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for zapatilla in zapatillas %}
+                <tr>
+                    <td scope="row" class="text-center">{{ forloop.counter }}</td>
+                    <td class="text-center">{{ zapatilla.modelo }}</td>
+                    <td class="text-center">{{ zapatilla.codigo }}</td>
+                    <td class="text-center">{{ zapatilla.talla }}</td>
+                    <td class="text-center">{{ zapatilla.precioSugerido }}</td>
+                    <td class="text-center">{{ zapatilla.precioCompra }}</td>
+                    <td class="text-center">{{ zapatilla.categoriaGenero }}</td>
+                    <td class="text-center">{{ zapatilla.categoriaUso }}</td>
+                    <td class="text-center">{{ zapatilla.marcaPerteneciente.nombre }}</td>
+                    <td class="text-center">
+                        <div class="{{ zapatilla.colorPrincipal }}" style="margin-left: 40%;"> </div>
+                    </td>
+
+                    <td class="text-center">
+                    <!-- Por defecto le pasamos 0 para que regrese al html de registrarZapatilla -->
+                    <a role="button" class="btn btn-danger "
+                        href="{% url 'EliminarZapatilla' zapatilla.id 0 %}">Eliminar</a>
+                    <a role="button" class="btn btn-info" href="{% url 'EditarZapatilla' zapatilla.id %}">Editar</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+            <tfootc>
+                <tr>
+                    <td colspan="7"><strong>Total Zapatillas</strong></td>
+                    <td class="text-right"><strong> {{ zapatillas.count }} </strong></td>
+                </tr>
+            </tfootc>
+
+        </table>
+        </div>
+    </div>
+
+    {% else %}
+    <div style="padding-top: 70px;">
+        <p style="text-align: center; margin-top: 25px; color: red;">Todas las zapatillas han sido vendidas </p>
+    </div>
+    {% endif %}
+
+{% elif seleccion == "ambas" %}
+
+    {% if zapatillas.count != 0%}
+        <div class="table-responsive" style="margin-left: 50px; margin-right: 60px; margin-top: 50px;" id="barra">
+            <p style="text-align: center;">Lista de Zapatillas No Vendidas </p>
+
+            <div id="div1">
+            <table class="table">
+
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center">Modelo</th>
+                        <th scope="col" class="text-center">Codigo</th>
+                        <th scope="col" class="text-center">Talla</th>
+                        <th scope="col" class="text-center">Precio Sugerido</th>
+                        <th scope="col" class="text-center">Precio Compra</th>
+                        <th scope="col" class="text-center">Género</th>
+                        <th scope="col" class="text-center">Uso</th>
+                        <th scope="col" class="text-center">Marca</th>
+                        <th scope="col" class="text-center">Color Principal</th>
+                        <th scope="col" class="text-center"> Operaciones</th>
+                    </tr>
+                </thead>
+
+                
+                <tbody>
+                    {% for zapatilla in zapatillas %}
+                    <tr>
+                        <td scope="row" class="text-center">{{ forloop.counter }}</td>
+                        <td class="text-center">{{ zapatilla.modelo }}</td>
+                        <td class="text-center">{{ zapatilla.codigo }}</td>
+                        <td class="text-center">{{ zapatilla.talla }}</td>
+                        <td class="text-center">{{ zapatilla.precioSugerido }}</td>
+                        <td class="text-center">{{ zapatilla.precioCompra }}</td>
+                        <td class="text-center">{{ zapatilla.categoriaGenero }}</td>
+                        <td class="text-center">{{ zapatilla.categoriaUso }}</td>
+                        <td class="text-center">{{ zapatilla.marcaPerteneciente.nombre }}</td>
+                        <td class="text-center">
+                            <div class="{{ zapatilla.colorPrincipal }}" style="margin-left: 40%;"> </div>
+                        </td>
+
+
+                        <td class="text-center">
+                            <!-- Por defecto le pasamos 0 para que regrese al html de registrarZapatilla -->
+                            <a role="button" class="btn btn-danger "
+                                href="{% url 'EliminarZapatilla' zapatilla.id 0 %}">Eliminar</a>
+                            <a role="button" class="btn btn-info" href="{% url 'EditarZapatilla' zapatilla.id %}">Editar</a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+                
+
+                <tfootc>
+                    <tr>
+                        <td colspan="7"><strong>Total Zapatillas</strong></td>
+                        <td class="text-right"><strong> {{ zapatillas.count }} </strong></td>
+                    </tr>
+                </tfootc>
+
+            </table>
+            </div>
+        </div>
+
+    {% else %}
+        <div style="padding-top: 70px;">
+            <p style="text-align: center; margin-top: 25px; color: red;">Todas las zapatillas han sido vendidas </p>
+        </div>
+    {% endif %}
+
+    {% if ventas.count != 0%}
+        <div class="table-responsive" style="margin-left: 50px; margin-right: 60px; margin-top: 50px;" id="barra">
+            <p style="text-align: center;">Lista de Zapatillas Vendidas </p>
+            
+            <div id="div1">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="text-center"  nowrap="nowrap" style="width: 30px;">#</th>
+                            <th scope="col" class="text-center">Modelo</th>
+                            <th scope="col" class="text-center">Codigo</th>
+                            <th scope="col" class="text-center">Talla</th>
+                            <th scope="col" class="text-center"> Color Principal </th>
+                            <th scope="col" class="text-center">Marca</th>
+
+
+                            <th scope="col" class="text-center">Precio de Venta Sugerido</th>
+                            <th scope="col" class="text-center">Precio de Compra</th>
+
+                            <th scope="col" class="text-center">Precio de Venta</th>
+                            <th scope="col" class="text-center">Fecha de Venta</th>
+
+                            <th scope="col" class="text-center">Ganacia</th>
+
+                            <th scope="col" class="text-center">Operaciones en Venta</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for venta in ventas %}
+                        <tr>
+                            <td scope="row" class="text-center">{{ forloop.counter }}</td>
+                            <td class="text-center">{{ venta.zapatillaCorrespondiente.modelo }}</td>
+                            <td class="text-center">{{ venta.zapatillaCorrespondiente.codigo }}</td>
+                            <td class="text-center">{{ venta.zapatillaCorrespondiente.talla }}</td>
+                            <td class="text-center">
+                                <div class="{{ venta.zapatillaCorrespondiente.colorPrincipal }}" style="margin-left: 40%;"> </div>
+                            </td>
+                            <td class="text-center">{{ venta.zapatillaCorrespondiente.marcaPerteneciente.nombre }}</td>
+
+                            <td class="text-center">{{ venta.zapatillaCorrespondiente.precioSugerido }}</td>
+                            <td class="text-center">{{ venta.zapatillaCorrespondiente.precioCompra }}</td>
+
+
+                            <td class="text-center">{{ venta.precioVenta }}</td>
+
+                            <td class="text-center">{{ venta.fechaVenta }}</td>
+                            {% if venta.ganancia >= venta.gananciaEsperada %}
+
+                                <td class="text-center" style="color: green;">{{ venta.ganancia|floatformat:"2" }}</td>
+
+                            {% else %}
+
+                                <td class="text-center" style="color: red;">{{ venta.ganancia|floatformat:"2" }}</td>
+                            {% endif %}
+
+                            <td class="text-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a class="btn btn-secondary" href="{% url 'EditarVenta' venta.id %}">Editar</a>
+                                    <a class="btn btn-danger" href="{% url 'EliminarVenta' venta.id %}">Eliminar</a>
+                                  </div>
+                            </td>
+
+                            
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    
+                    <tfootc>
+                        <tr>
+                            <td colspan="3"><strong>Total Zapatillas Vendidas : </strong></td>
+                            <td class="text-right"><strong> {{ ventas.count }} </strong></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="10"><strong>Ganacia Total :</strong></td>
+                            <td class="text-center"><strong> {{ ganaciaTotal|floatformat:"2" }} </strong></td>
+                        </tr>
+                    </tfootc>
+
+                </table>
+            </div>
+        </div>
+
+    {% else %}
+
+    <div style="padding-top: 70px;">
+        <p style="text-align: center; margin-top: 25px; color: red;"> No hay zapatilllas vendidas </p>
+    </div>
+    {% endif %}
+
+{% endif %}
+
+
+{% endblock %}
+
+
+

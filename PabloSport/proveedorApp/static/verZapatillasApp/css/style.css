@@ -1,0 +1,47 @@
+/* 1021x420 */
+
+
+#div1    { overflow-y: auto; height: 500px; }
+#div1 th { position: sticky; top: 0; }
+
+
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+
+
+
+/* Funca pero no es tatico el thead*/
+/* #div1 {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height:500px;
+    width:100%;
+}
+#div1 table{
+   width:100%;
+} */
+
+
+
+/* Funca pero la separacion es demasiado */
+/* table {
+    width: 716px; 
+    border-spacing: 0;
+}
+
+tbody, thead tr { display: block; }
+
+tbody {
+    height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody td, thead th {
+    width: 140px;
+}
+
+thead th:last-child {
+    width: 156px; 
+} */

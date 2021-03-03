@@ -1,0 +1,114 @@
+{% extends "proveedorApp/base.html" %}
+
+<!-- Volvemos a cargar porque hay imagenes y partes que necesitan de los statics  -->
+{% load static %}
+
+
+
+{% block style %}
+
+<!-- Template Main CSS File -->
+<link href="{% static 'proveedorApp/NuevoCss/style.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<section id="about-video" class="about-video">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <!-- Poner el Formulario -->
+            <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
+                <div class="container">
+                    <h2>Registrar Marca</h2>
+                    <form class="form-horizontal" action="" method="POST"> {% csrf_token %}
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Nombre:</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Ingrese Nombre de la marca"
+                                    name="nombre" maxlength="20" required>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-group">
+                            
+                            <!-- Boton centrado -->
+                            <div class="col-sm-offset-2 col-sm-10- text-center">
+                                <button type="submit" class="btn btn-primary"> Crear Marca </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Texto -->
+            <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+                <h3>Pestaña de Crear Marcas</h3>
+                <p class="font-italic">
+                    La marca se creara por medio de su nombre con maximo de 20 caracteres, su finalidad es:
+                </p>
+                <ul>
+                    <li><i class="bx bx-check-double"></i> Asignar a cada zapatilla una marca </li>
+                    <li><i class="bx bx-check-double"></i> Poder consultar de manera rapida las zapatillas </li>
+                </ul>
+                <p>
+                    Si desea ver las marcas registrados solo debe desplazarse hacia abajo.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+{% if marcas.count != 0%}
+
+<section id="hero" class="d-flex align-items-center">
+
+<div>
+    <!-- Tarjetas blancas del inicio-->
+    <div class="row icon-boxes"> 
+
+        
+        {% for marca in marcas %}
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+                <!-- https://remixicon.com/  Iconos fachas -->
+                <div class="icon"><i class="ri-copyright-line"></i></div>
+                <p class="title">{{ marca.nombre }}</p>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="{% url 'EditarMarca' marca.id %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true">Editar</a>
+
+                    <a href="{% url 'EliminarMarca' marca.id %}" class="btn btn-danger btn-lg" role="button" aria-disabled="true">Eliminar</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+    
+</section>
+
+{% else %}
+    <p>Áun no se encuentra ninguna marca registrada</p>
+
+{% endif %}
+
+{% endblock %}

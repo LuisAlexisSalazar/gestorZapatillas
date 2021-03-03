@@ -1,0 +1,85 @@
+{% extends "proveedorApp/base.html" %}
+
+<!-- Volvemos a cargar porque hay imagenes y partes que necesitan de los statics  -->
+{% load static %}
+
+
+
+{% block style %}
+
+<!-- Template Main CSS File -->
+<link href="{% static 'proveedorApp/NuevoCss/style.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<section id="about-video" class="about-video">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <!-- Poner el Formulario -->
+            <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
+               
+                <div class="container">
+                    <h2>Editar un Grupo del proveedor : {{grupo.creador.nombre}}</h2>
+
+                    <form class="form-horizontal" action="" method="POST"> {% csrf_token %}
+                        <br>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Fecha :</label>
+
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" placeholder="Ingrese la nueva fecha del grupo"
+                                    name="fecha" required>
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <div class="form-group">
+                            
+                            <div class="col-sm-offset-2 col-sm-10- text-center">
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Texto -->
+            <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+                <h3>Pestaña para editar Grupo del proveedor {{grupo.creador.nombre}}</h3>
+                <p class="font-italic">
+                    El grupo es registrado por su fecha de registro:
+                </p>
+                <ul>
+                    {% load i18n %}
+                    {% language 'es' %}
+                    <li><i class="bx bx-check-double"></i> Grupos de Zapatillas actual es: {{grupo.fechaIngreso|date:"j" }} de {{grupo.fechaIngreso|date:"F Y" }} </li>
+                    {% endlanguage %}
+                    
+                </ul>
+                <p>
+                    Recordar que las zapatillas son registrados dentro de un grupo y esta fecha es para todas las zapatillas registradas o posteriormente que sean registradas
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End About Video Section -->
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "proveedorApp/base.html" %}
+
+<!-- Volvemos a cargar porque hay imagenes y partes que necesitan de los statics  -->
+{% load static %}
+
+
+
+{% block style %}
+
+<!-- Template Main CSS File -->
+<link href="{% static 'proveedorApp/NuevoCss/style.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<section id="about-video" class="about-video">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <!-- Poner el Formulario -->
+            <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
+               
+                <div class="container">
+                    <h2>Editar un Proveedor : {{proveedor.nombre}}</h2>
+
+                    <form class="form-horizontal" action="" method="POST"> {% csrf_token %}
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Nombre:</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Ingrese nuevo Nombre del proveedor"
+                                    name="nombre" maxlength="15" required>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-group">
+                            
+                            <div class="col-sm-offset-2 col-sm-10- text-center">
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Texto -->
+            <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+                <h3>Pestaña para editar datos de un Proveedor</h3>
+                <p class="font-italic">
+                    El proveedor se registrara por nombre con máximo de 15 caracteres, este se le podra asignar:
+                </p>
+                <ul>
+                    <li><i class="bx bx-check-double"></i> Grupos de Zapatillas. </li>
+                    <li><i class="bx bx-check-double"></i> Las boletas para el grupo de zapatillas </li>
+                </ul>
+                <p>
+                    Si desea ver los grupos del proveedor registrados solo debe desplazarse hacia abajo donde aparecen todos los grupos con posiblidad de editarlos
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End About Video Section -->
+
+
+
+
+<!-- Grupos del proveedor -->
+<section id="hero" class="d-flex align-items-center">
+
+    <div>
+        <!-- Tarjetas blancas del inicio-->
+        <div class="row icon-boxes"> 
+    
+            <!-- Nombre de los proveedores -->
+    
+            {% for grupo in grupos %}
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+                <div class="icon-box">
+                    <!-- https://remixicon.com/  Iconos fachas -->
+                    <div class="icon"><i class="ri-user-line"></i></div>
+                    <h4 class="title"><a > Grupo </a></h4>
+                    
+                    {% load i18n %}
+                    {% language 'es' %}
+                    <p class="description">Fecha de Ingreso de zapatillas </p>
+                    <p class="description">Año : {{ grupo.fechaIngreso.year }} </p>
+                    <p class="description">Día y mes : {{grupo.fechaIngreso.day}} de {{ grupo.fechaIngreso|date:"F" }}</p>
+                    {% endlanguage %}
+                    
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+        
+    </div>
+        
+    </section>
+    
+
+
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "proveedorApp/base.html" %}
+
+{% load static %}
+
+
+
+{% block content %}
+<section id="hero" class="d-flex align-items-center">
+
+    <!-- Titulos  -->
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+
+            <div class="col-xl-7 col-lg-9 text-center">
+                <h1>Seleccione un Grupo de zapatillas para asignar la boleta zapatillas</h1>
+            </div>
+        </div>
+
+
+
+        <!-- <div> -->
+        <!-- Tarjetas blancas del inicio-->
+        <div class="row icon-boxes">
+            <!-- Nombre de los proveedores -->
+            {% for grupo in grupos %}
+            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in"
+                data-aos-delay="200">
+
+                <div class="icon-box">
+                    <!-- https://remixicon.com/  Iconos fachas -->
+                    <div class="icon"><i class="ri-stack-line"></i></div>
+                    <h4 class="title"><a href="#">{{ grupo.fechaIngreso }}</a></h4>
+                    <p class="description">Grupo por : {{ grupo.creador.nombre }}
+                    </p>
+
+                    <br>
+                    <div class="centerButton text-center">
+                        <div class="btn-group btn-group-justified">
+                            <a class="btn btn-outline-primary" href="{% url 'Boleta' grupo.id %}"
+                                role=" button">Seleccionar</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock %}

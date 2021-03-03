@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="{% static 'users/css/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Login</h1>
+			</div>
+
+			<form class="login-form" method="POST"> {% csrf_token %}
+
+				{{form.as_p}}
+
+				<button class="btn btn-primary btn-large btn-block" >login</button>
+				
+			</form>
+		</div>
+	</div>
+</body>
+</html>

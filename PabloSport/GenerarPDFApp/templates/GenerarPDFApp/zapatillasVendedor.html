@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+
+        table, td {
+
+            text-align: center;
+            padding-top: 5px;
+            border: 1px solid black;
+            /* border-collapse: collapse; */
+            
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Funciona pero en CSS no -->
+    <!-- <table width="80%"> -->
+        <!-- table-layout="auto" -->
+    <table align="center">
+        
+        <thead>
+            <th>#</th>
+            <th>Codigo</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Precio Sugerido <br>de Venta</th>
+            <th>Talla</th>
+
+        </thead>
+
+        <tbody>
+
+            {% for zapatilla in zapatillas %}
+            <tr>
+                <td width="35px">{{ forloop.counter }}</td>
+                <td width="170px">{{zapatilla.codigo}}</td>
+                <td width="60px">{{zapatilla.marcaPerteneciente.nombre}}</td>
+                <td width="230px">{{zapatilla.modelo|capfirst}}</td>
+                <td width="95px">S/{{zapatilla.precioSugerido|floatformat:2}}</td>
+                <td width="55px">{{zapatilla.talla|floatformat:2}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+
+</body>
+
+</html>
+
