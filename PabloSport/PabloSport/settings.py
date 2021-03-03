@@ -14,19 +14,19 @@ SECRET_KEY = '9#wthgz-zvaw!@f4xw61w2v)j%=^vf^y0i^-_t-(9z-1eg+e7q'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # Produccion
-# DEBUG = True
+DEBUG = True
 
 # Deploy
-DEBUG = False
+# DEBUG = False
 
 
 
 # Produccion
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 # Deploy
 # Permitir que todo ingresen al sitio web
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # Deploy
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'PabloSport.urls'
@@ -86,23 +86,23 @@ WSGI_APPLICATION = 'PabloSport.wsgi.application'
 # Produccion
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Despliegue
-import dj_database_url
-from decouple import config
+# import dj_database_url
+# from decouple import config
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
 
 
@@ -143,16 +143,16 @@ USE_TZ = True
 # Produccion
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
 
 # Deploy
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
