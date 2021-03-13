@@ -8,7 +8,6 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>OnePage Bootstrap Template - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -34,18 +33,20 @@
   <!-- Template Main CSS File -->
   <link href="{% static 'proveedorApp/css/style.css' %}" rel="stylesheet">
 
+
+  <!-- Solo para Base.html -->
   <style>
     .contenedormenu {
       display: flex;
     }
 
-    .listado{
+    .listado {
       margin-right: 55px;
 
       /* Pone el texto en una linea */
       white-space: nowrap;
-    }
 
+    }
   </style>
 
   {% block style %}
@@ -60,9 +61,13 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">OnePage</a></h1>
+      <h1 class="logo me-auto"><a href="{% url 'Home' %}">Home</a></h1>
+
+
+
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <!-- Prueba---------------- -->
+
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -116,12 +121,12 @@
 
           <li><a href="{% url 'PDFZapatillasVendedor' %}">PDF</a></li>
         </ul>
-      
-      
+
+
 
       </nav><!-- .nav-menu -->
 
-      
+
       <!-- Raro no usa el url normal -->
       <a href="{% url 'Logout' %}" class="get-started-btn scrollto">Cerrar Sesión</a>
 
@@ -182,32 +187,37 @@
                   <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Proveedor' %}">Gestión Proveedor</a></li>
                 </ul>
               </div>
-              
+
               <div class="listado">
                 <ul>
                   <li><i class="bx bx-chevron-right"></i> <a href="{% url 'CrearMarca' %}">Gestión Marca</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Grupo-SeleccionProveedor' %}">Gestión Grupo de Zapatillas</a></li>
-                </ul>
-              </div>
-              
-              <div class="listado">
-                <ul>
-                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Boletas' 0 1 %}">Gestión Boleta</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="{% url  'MostrarGrupos' 0 1 %}">Gestión Zapatillas</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Grupo-SeleccionProveedor' %}">Gestión Grupo
+                      de Zapatillas</a></li>
                 </ul>
               </div>
 
               <div class="listado">
                 <ul>
-                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'ZapatillasGeneralesVender'%}">Registrar Venta</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Boletas' 0 1 %}">Gestión Boleta</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url  'MostrarGrupos' 0 1 %}">Gestión
+                      Zapatillas</a></li>
+                </ul>
+              </div>
+
+              <div class="listado">
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'ZapatillasGeneralesVender'%}">Registrar
+                      Venta</a></li>
                   <li><i class="bx bx-chevron-right"></i> <a href="{% url 'Kardex' %}">Gestión Venta</a></li>
                 </ul>
               </div>
-              
+
               <div class="listado">
                 <ul>
-                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'VerZapatillasGeneral' %}">Ver Zapatillas</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'PDFZapatillasVendedor' %}">Generar PDF</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'VerZapatillasGeneral' %}">Ver Zapatillas</a>
+                  </li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="{% url 'PDFZapatillasVendedor' %}">Generar PDF</a>
+                  </li>
                 </ul>
               </div>
 
@@ -222,8 +232,10 @@
     </div>
   </footer><!-- End Footer -->
 
+
+
   <!-- Flecha para ir arriba -->
-  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  <a href="" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
   <div id="preloader"></div>
 
 
